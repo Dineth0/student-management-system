@@ -52,5 +52,10 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<Student> GetAllStudents() {
+        return studentRepo.findAll();
+    }
+
 
 }

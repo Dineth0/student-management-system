@@ -4,9 +4,11 @@ import lk.ijse.backend.dto.StudentDTO;
 import lk.ijse.backend.dto.UserRegistrationDTO;
 import lk.ijse.backend.entity.Student;
 import lk.ijse.backend.repo.StudentRepo;
+import lk.ijse.backend.repo.UserRepo;
 import lk.ijse.backend.service.StudentService;
 import lk.ijse.backend.util.VarList;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepo studentRepo;
+    private final ModelMapper modelMapper;
 
     @Override
     public int UpdateStudent(StudentDTO studentDTO) {
@@ -54,8 +57,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> GetAllStudents() {
-        return studentRepo.findAll();
+    public List<StudentDTO> GetAllStudents() {
+        List<Student> students = studentRepo.findAll();
+        return students.stream()
+                .map(student -> modelMapper.map(student, StudentDTO.class))
+                .toList();
     }
 
 

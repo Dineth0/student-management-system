@@ -9,5 +9,5 @@ import java.util.List;
 public interface StudentService {
     public int UpdateStudent(StudentDTO studentDTO);
     public int DeleteStudent(Long id);
-    public List<Student> GetAllStudents();
+    public List<StudentDTO> GetAllStudents();
 }

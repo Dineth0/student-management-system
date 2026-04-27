@@ -47,5 +47,17 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/getAllStudents")
+    public ResponseEntity<ResponseDTO> getAllStudents() {
+        try{
+            List<StudentDTO> students = studentService.GetAllStudents();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ResponseDTO(VarList.OK,"suceess", students));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        }
+    }
 
 }

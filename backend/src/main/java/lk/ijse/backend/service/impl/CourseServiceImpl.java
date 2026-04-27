@@ -60,4 +60,12 @@ public class CourseServiceImpl implements CourseService {
             return VarList.Internal_Server_Error;
         }
     }
+
+    @Override
+    public List<CourseDTO> getAllCourses() {
+        List<Course> courses = courseRepo.findAll();
+        return courses.stream()
+                .map(course -> modelMapper.map(course, CourseDTO.class))
+                .toList();
+    }
 }

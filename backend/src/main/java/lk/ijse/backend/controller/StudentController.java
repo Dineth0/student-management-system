@@ -1,13 +1,17 @@
 package lk.ijse.backend.controller;
 
 import lk.ijse.backend.dto.ResponseDTO;
+import lk.ijse.backend.dto.StudentDTO;
 import lk.ijse.backend.dto.UserRegistrationDTO;
+import lk.ijse.backend.entity.Student;
 import lk.ijse.backend.service.StudentService;
 import lk.ijse.backend.util.VarList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/student")
@@ -18,14 +22,14 @@ public class StudentController {
     private final StudentService studentService;
 
     @PutMapping("/updateStudent")
-    public ResponseEntity<ResponseDTO> updateStudent(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<ResponseDTO> updateStudent(@RequestBody StudentDTO studentDTO) {
         try{
-            int response = studentService.UpdateStudent(userRegistrationDTO);
+            int response = studentService.UpdateStudent(studentDTO);
 
             switch (response) {
                 case VarList.Updated -> {
                     return ResponseEntity.status(HttpStatus.CREATED)
-                            .body(new ResponseDTO(VarList.Created, "Student Saved", userRegistrationDTO));
+                            .body(new ResponseDTO(VarList.Created, "Student Saved", studentDTO));
                 }
                 case VarList.Not_Found -> {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -42,4 +46,6 @@ public class StudentController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+
+
 }

@@ -37,5 +37,20 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
+    public int DeleteStudent(Long id) {
+        try{
+            if(studentRepo.existsById(id)){
+                studentRepo.deleteById(id);
+                return VarList.OK;
+            }else {
+                return VarList.Not_Found;
+            }
+        }catch(Exception e){
+            return VarList.Internal_Server_Error;
+        }
+
+    }
+
 
 }

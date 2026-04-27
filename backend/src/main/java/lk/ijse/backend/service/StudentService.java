@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface StudentService {
     public int UpdateStudent(UserRegistrationDTO userRegistrationDTO);
+    public int DeleteStudent(Long id);
 
 }

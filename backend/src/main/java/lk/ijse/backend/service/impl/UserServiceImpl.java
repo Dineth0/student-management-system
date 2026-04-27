@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int AddUser(UserRegistrationDTO userRegistrationDTO) {
         if(userRepo.existsByEmail(userRegistrationDTO.getEmail())){
-            return VarList.Not_Acceptable;
+            return VarList.Conflict;
         }
         try{
             User user = new User();
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
             return VarList.Created;
         }catch(Exception e){
-            return VarList.Bad_Gateway;
+            return VarList.Internal_Server_Error;
         }
     }
 

@@ -36,7 +36,7 @@ public class StudentController {
                             .body(new ResponseDTO(VarList.Not_Found, "Student Not found", null));
                 }
                 default -> {
-                    return ResponseEntity.status(HttpStatus.CREATED)
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                             .body(new ResponseDTO(VarList.Internal_Server_Error, "Error while updating", null));
                 }
             }
@@ -52,7 +52,7 @@ public class StudentController {
         try{
             List<StudentDTO> students = studentService.GetAllStudents();
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ResponseDTO(VarList.OK,"suceess", students));
+                    .body(new ResponseDTO(VarList.OK,"success", students));
         }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

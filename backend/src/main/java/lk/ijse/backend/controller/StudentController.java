@@ -60,4 +60,22 @@ public class StudentController {
         }
     }
 
+    @DeleteMapping("/deleteStudent/{id}")
+    public ResponseEntity<ResponseDTO> deleteStudent(@PathVariable Long id) {
+        try{
+            int response = studentService.DeleteStudent(id);
+            if(response == VarList.OK){
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(new ResponseDTO(VarList.OK, "Student Deleted", null));
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseDTO(VarList.Not_Found, "Student Not Found", null));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package lk.ijse.backend.service.impl;
 
+import lk.ijse.backend.dto.StudentDTO;
 import lk.ijse.backend.dto.UserRegistrationDTO;
 import lk.ijse.backend.entity.Student;
 import lk.ijse.backend.repo.StudentRepo;
@@ -17,15 +18,15 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepo studentRepo;
 
     @Override
-    public int UpdateStudent(UserRegistrationDTO userRegistrationDTO) {
+    public int UpdateStudent(StudentDTO studentDTO) {
         try{
-            if(studentRepo.existsById(userRegistrationDTO.getId())){
-                Student student = studentRepo.findById(userRegistrationDTO.getId()).get();
+            if(studentRepo.existsById(studentDTO.getId())){
+                Student student = studentRepo.findById(studentDTO.getId()).get();
 
-                student.setName(userRegistrationDTO.getName());
-                student.setPhone(userRegistrationDTO.getPhone());
-                student.setBirthday(userRegistrationDTO.getBirthday());
-                student.setNic(userRegistrationDTO.getNic());
+                student.setName(studentDTO.getName());
+                student.setPhone(studentDTO.getPhone());
+                student.setBirthday(studentDTO.getBirthday());
+                student.setNic(studentDTO.getNic());
 
                 studentRepo.save(student);
                 return VarList.Updated;

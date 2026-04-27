@@ -84,4 +84,23 @@ public class CourseController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+
+    @DeleteMapping("/deleteCourse/{id}")
+    public ResponseEntity<ResponseDTO> deleteCourse(@PathVariable Long id) {
+        try{
+            int response = courseService.deleteCourse(id);
+            if(response == VarList.OK){
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(new ResponseDTO(VarList.OK, "Course Deleted", null));
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseDTO(VarList.Not_Found, "Course Not Found", null));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        }
+    }
+
 }

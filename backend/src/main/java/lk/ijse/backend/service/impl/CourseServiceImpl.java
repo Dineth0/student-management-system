@@ -32,5 +32,20 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
+    public int updateCourse(CourseDTO courseDTO) {
+        try{
+            if(courseDTO.getId() != null && courseRepo.existsById(courseDTO.getId())){
+                courseRepo.save(modelMapper.map(courseDTO, Course.class));
+                return VarList.Updated;
+            }else {
+                return VarList.Not_Found;
+            }
+        }catch (Exception e){
+            return VarList.Internal_Server_Error;
+        }
+
+    }
+
 
 }

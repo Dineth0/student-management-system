@@ -47,5 +47,17 @@ public class CourseServiceImpl implements CourseService {
 
     }
 
-
+    @Override
+    public int deleteCourse(Long id) {
+        try{
+            if(courseRepo.existsById(id)){
+                courseRepo.deleteById(id);
+                return VarList.OK;
+            }else {
+                return VarList.Not_Found;
+            }
+        }catch (Exception e){
+            return VarList.Internal_Server_Error;
+        }
+    }
 }

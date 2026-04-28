@@ -11,10 +11,3 @@ interface userData{
 export const addUser = (data:userData)=>{
     return axiosInstance.post('/user/register', data)
 }
-export const getAllStudents = () =>{
-    return axiosInstance.get('/student/getAllStudents')
-}
-
-export const deleteStudent = (id: number)=>{
-    return axiosInstance.delete(`/student/deleteStudent/${id}`)
-}

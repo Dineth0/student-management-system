@@ -7,9 +7,12 @@ import lk.ijse.backend.entity.Student;
 import lk.ijse.backend.entity.User;
 import lk.ijse.backend.repo.StudentRepo;
 import lk.ijse.backend.repo.UserRepo;
+import lk.ijse.backend.service.StudentService;
 import lk.ijse.backend.service.UserService;
 import lk.ijse.backend.util.VarList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final StudentRepo studentRepo;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -31,8 +35,10 @@ public class UserServiceImpl implements UserService {
         try{
             User user = new User();
             user.setName(userRegistrationDTO.getName());
-            user.setPassword(userRegistrationDTO.getPassword());
             user.setEmail(userRegistrationDTO.getEmail());
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
 
             userRepo.save(user);
 

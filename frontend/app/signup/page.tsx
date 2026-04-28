@@ -66,7 +66,7 @@ export default function UserRegister() {
   return (
     <main className="min-h-screen bg-[#F1F1F1] flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-md rounded-[40px] shadow-xl overflow-hidden flex flex-col min-h-[550px] relative px-8 pt-20">
-                <h1 className="text-3xl font-bold text-[#213401] text-center mb-7">Create Account</h1>
+                <h1 className="text-3xl font-bold text-[#213401] text-center mb-5">Create Your Account</h1>
 
                 
                 <form className='p-6 space-y-4' onSubmit={handleSubmit}>

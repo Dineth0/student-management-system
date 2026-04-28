@@ -1,5 +1,5 @@
 'use client'
-import { FiBook, FiCheckCircle, FiClock, FiCreditCard, FiTag, FiUser } from "react-icons/fi"
+import { FiBook, FiCheckCircle, FiClock, FiCreditCard } from "react-icons/fi"
 
  
 

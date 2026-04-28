@@ -7,6 +7,7 @@ import { HiOutlineLockClosed, HiOutlineMail } from "react-icons/hi";
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const[loading, setLoading] = useState(false)
     return (
         <main className="min-h-screen bg-[#F1F1F1] flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-md rounded-[40px] shadow-xl overflow-hidden flex flex-col min-h-[550px] relative px-8 pt-20">
@@ -51,11 +52,12 @@ export default function Login() {
                     <button
                         type="submit"
                         className="w-full py-4 bg-[#213400] text-white rounded-full font-bold hover:bg-[#254108] transition-all mt-4">
+                            {loading ? 'Login....': 'Login'}
                     </button>
          
                 </form>
 
-                <div className="text-center  pb-10">
+                <div className="text-center mt-5 pb-10">
                     <p className="text-sm text-[#213400]">
                         Need an account? <Link href="/signup" className="text-black font-bold hover:underline">Sign up</Link>
                     </p>

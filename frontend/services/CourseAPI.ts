@@ -12,3 +12,7 @@ interface CourseData{
 export const getAllCourses = () =>{
     return axiosInstance.get('/course/getAllCourses')
 }
+
+export const deleteCourse = (id: number)=>{
+    return axiosInstance.delete(`/course/deleteCourse/${id}`)
+}

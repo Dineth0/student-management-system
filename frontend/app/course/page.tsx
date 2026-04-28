@@ -1,6 +1,7 @@
 'use client'
 import CourseModal from '@/components/courseModal'
-import { getAllCourses } from '@/services/CourseAPI'
+import { deleteCourse, getAllCourses } from '@/services/CourseAPI'
+import { showConfirmDialog, showErrorAlert, showSuccessAlert } from '@/utils/SweetAlerts'
 import React, { useEffect, useState } from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 
@@ -34,6 +35,26 @@ export default function Courses() {
             fetchCourse()
         },[])
 
+        const handleDelete = (courseDelete: CourseItem)=>{
+            showConfirmDialog(
+                'Are you sure?',
+                `Do you want to delete ${courseDelete.name} ? `,
+                'Yes, Delete id!'
+            ).then(async(result)=>{
+                if(result.isConfirmed){
+                    try{
+                        await deleteCourse(courseDelete.id)
+                        setCourses(preCorses =>
+                            preCorses.filter(course=> course.id !== courseDelete.id)
+                        )
+                        showSuccessAlert('Deleted' ,`${courseDelete.name} has been Deleted`)
+                    }catch(error){
+                        console.error(error)
+                        showErrorAlert('error', 'Faild to delete')
+                    }
+                }
+            })
+        }
 
   return (
     <div className='p-8 bg-gray-50 min-h-screen'>
@@ -74,7 +95,7 @@ export default function Courses() {
 
                                 <td className='className="p-4 text-gray-800 font-medium'>
                                     <button className='text-blue-500 hover:text-blue-700 transition-colors p-2 hover:bg-blue-50 rounded-full'><FiEdit size={18}/></button>
-                                    <button className='text-red-500 hover:text-red-700 transition-colors p-2 hover:bg-red-50 rounded-full'><FiTrash2 size={18}/></button>
+                                    <button className='text-red-500 hover:text-red-700 transition-colors p-2 hover:bg-red-50 rounded-full' onClick={()=> handleDelete(course)}><FiTrash2 size={18}/></button>
                                 </td>
                             </tr>
                         ))

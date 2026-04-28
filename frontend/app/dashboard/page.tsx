@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div className='p-8 bg-gray-50 min-h-screen'>
+    <div className='p-8 bg-green-50 min-h-screen'>
         <div className='flex justify-center items-center mb-10'>
             <div>
                 <h1 className='text-3xl font-bold text-gray-800'>Admin Dashboard</h1>

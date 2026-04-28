@@ -9,7 +9,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const[loading, setLoading] = useState(false)
     return (
-        <main className="min-h-screen bg-[#F1F1F1] flex items-center justify-center p-4">
+        <main className="min-h-screen bg-green-50 flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-md rounded-[40px] shadow-xl overflow-hidden flex flex-col min-h-[550px] relative px-8 pt-20">
                 <h1 className="text-3xl font-bold text-[#213401] text-center mb-12">Login</h1>
 

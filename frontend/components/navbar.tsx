@@ -11,7 +11,7 @@ export default function Navbar() {
     return null
   }
   return (
-    <nav className='flex justify-between p-4 bg-blue-700 text-white shadow-lg'>
+    <nav className='flex justify-between p-4 bg-green-700 text-white shadow-lg'>
         <div className='font-bold text-xl'>Student Management System</div>
         <div className='space-x-6'>
             <Link href="/dashboard" className='hover:underline'>Dashboard</Link>

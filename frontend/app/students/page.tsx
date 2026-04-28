@@ -77,7 +77,7 @@ export default function Students() {
         setIsModalOpen(true)
     }
   return (
-    <div className='p-8 bg-gray-50 min-h-screen'>
+    <div className='p-8 bg-green-50 min-h-screen'>
         <div className='flex justify-between items-center mb-6'>
             <div>
                 <h2 className='text-2xl font-bold text-gray-800'>

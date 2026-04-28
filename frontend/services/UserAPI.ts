@@ -6,7 +6,7 @@ interface userData{
     phone:string
     birthday: string
     nic: string
-    password: string
+    password?: string
 }
 export const addUser = (data:userData)=>{
     return axiosInstance.post('/user/register', data)
@@ -17,4 +17,7 @@ export const getAllStudents = () =>{
 
 export const deleteStudent = (id: number)=>{
     return axiosInstance.delete(`/student/deleteStudent/${id}`)
+}
+export const updateStudent = ( data:userData)=>{
+    return axiosInstance.put('/student/updateStudent', data)
 }

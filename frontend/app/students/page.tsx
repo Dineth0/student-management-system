@@ -18,8 +18,18 @@ export default function Students() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedStudent, setSelectedStudent] = useState<StudentsItem | null>(null)
 
-    const handleSuccess = () =>{
+    const handleSuccess = (updateStudent: StudentsItem) =>{
         setIsModalOpen(false)
+        if(selectedStudent){
+            setStudent(prevStudent =>
+                prevStudent.map(student =>
+                    student.id === updateStudent.id ? updateStudent : student
+                )
+            )
+        }else{
+            setStudent(prevStudents => [...prevStudents, updateStudent])
+        }
+
     }
 
     useEffect(()=>{

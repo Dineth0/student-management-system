@@ -1,11 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+interface StudentsItem{
+    id:number
+    name:string
+    email:string
+    phone:string
+    birthday:string
+    nic:string
+}
 
 interface Props{
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
+  student?: StudentsItem | null
 }
-export default function StudentModal({isOpen, onClose, onSuccess}:Props) {
+export default function StudentModal({isOpen, onClose, onSuccess, student}:Props) {
+
+  const [formData, setFormData] = useState({
+    id: student?.id || 0,
+    name: student?.name || '',
+    email: student?.email || '',
+    phone: student?.phone || '',
+    birthday: student?.birthday || '',
+    nic: student?.nic || ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    const {name, value} = e.target
+    setFormData((prev)=>({
+      ...prev,
+      [name]: value
+    }))
+  }
+  
+
   if(!isOpen) return null
   return (
     <div className='fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-50 p-4'>
@@ -21,7 +50,10 @@ export default function StudentModal({isOpen, onClose, onSuccess}:Props) {
             <input
             type='text'
             required
-            className='w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            name='name'
+            value={formData.name}
+            onChange={handleChange}
+            className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
           </div>
 
           <div>
@@ -29,15 +61,21 @@ export default function StudentModal({isOpen, onClose, onSuccess}:Props) {
             <input
             type='email'
             required
-            className='w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+            className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
           </div>
 
           <div>
-            <label className='"block text-sm font-medium text-gray-700 mb-1'>Course</label>
+            <label className='"block text-sm font-medium text-gray-700 mb-1'>Phone</label>
             <input
             type='text'
             required
-            className='w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            name='phone'
+            value={formData.phone}
+            onChange={handleChange}
+            className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
           </div>
 
           <div>
@@ -45,12 +83,26 @@ export default function StudentModal({isOpen, onClose, onSuccess}:Props) {
             <input
             type='date'
             required
-            className='w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            name='birthday'
+            value={formData.birthday}
+            onChange={handleChange}
+            className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+          </div>
+
+          <div>
+            <label className='"block text-sm font-medium text-gray-700 mb-1'>NIC</label>
+            <input
+            type='text'
+            required
+            name='nic'
+            value={formData.nic}
+            onChange={handleChange}
+            className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
           </div>
 
           <div className='flex gap-3 mt-6'>
-            <button type='button' onClick={onClose} className='flex-1 px-4 py-2 border rounded-lg hover:bg-gray-100'>Cancel</button>
-            <button type='submit' className='flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"'>Save</button>
+            <button type='button' onClick={onClose} className='flex-1  text-gray-900 px-4 py-2 border rounded-lg hover:bg-gray-100'>Cancel</button>
+            <button type='submit' className='flex-1  px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"'>Save</button>
           </div>
         </form>
       </div>

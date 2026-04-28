@@ -16,7 +16,7 @@ interface StudentsItem{
 export default function Students() {
     const [students, setStudent] = useState<StudentsItem[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isSelectedStudent, setIsSelectedStudent] = useState<StudentsItem | null>(null)
+    const [selectedStudent, setSelectedStudent] = useState<StudentsItem | null>(null)
 
     const handleSuccess = () =>{
         setIsModalOpen(false)
@@ -58,7 +58,12 @@ export default function Students() {
     }
 
     const handleEdit = (student: StudentsItem)=>{
-        setIsSelectedStudent(student)
+        setSelectedStudent(student)
+        setIsModalOpen(true)
+    }
+
+    const handleAdd = () =>{
+        setSelectedStudent(null)
         setIsModalOpen(true)
     }
   return (
@@ -71,7 +76,7 @@ export default function Students() {
             </div>
 
             <button className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-200'
-                    onClick={()=> setIsModalOpen(true)}>
+                    onClick={handleAdd}>
                 + Add Students
             </button>
         </div>
@@ -117,9 +122,12 @@ export default function Students() {
         </div>
 
         <StudentModal
+        key={selectedStudent?.id}
         isOpen={isModalOpen}
         onClose={()=> setIsModalOpen(false)}
-        onSuccess={handleSuccess}/>
+        onSuccess={handleSuccess}
+        student={selectedStudent}/>
+        
     </div>
   )
 }

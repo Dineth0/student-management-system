@@ -1,15 +1,40 @@
 'use client'
 import CourseModal from '@/components/courseModal'
-import React, { useState } from 'react'
+import { getAllCourses } from '@/services/CourseAPI'
+import React, { useEffect, useState } from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 
+interface CourseItem{
+    id:number
+    name:string
+    course_code: string
+    description:string
+    duration:string
+    fee: number
+}
 export default function Courses() {
-    const [cousrses, setCourses] = useState([])
+    const [cousrses, setCourses] = useState<CourseItem[]>([])
     const [isOpenModal, setIsOpenModal] = useState(false)
 
     const handleSuccess = () =>{
         setIsOpenModal(false)
     }
+
+    useEffect(()=>{
+            const fetchCourse = async () =>{
+                try{
+                    const response = await getAllCourses()
+                    setCourses(response.data.data)
+                    
+                }catch(error){
+                  
+                    console.error(error)
+                }
+            }
+            fetchCourse()
+        },[])
+
+
   return (
     <div className='p-8 bg-gray-50 min-h-screen'>
         <div className='flex justify-between items-center mb-6'>
@@ -30,20 +55,23 @@ export default function Courses() {
                 <thead>
                     <tr className='bg-gray-100 border-b border-gray-200'>
                         <th className='p-4 font-semibold text-gray-700'>Name</th>
-                        <th className='p-4 font-semibold text-gray-700'>Email</th>
-                        <th className='p-4 font-semibold text-gray-700'>Course</th>
-                        <th className='p-4 font-semibold text-gray-700'>Date of Birth</th>
+                        <th className='p-4 font-semibold text-gray-700'>Course Code</th>
+                        <th className='p-4 font-semibold text-gray-700'>Description</th>
+                        <th className='p-4 font-semibold text-gray-700'>Duration</th>
+                        <th className='p-4 font-semibold text-gray-700'>Fee</th>
                         <th className='p-4 font-semibold text-gray-700'>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {cousrses.length > 0 ? (
-                        cousrses.map((course: any)=>(
+                        cousrses.map((course)=>(
                             <tr key={course.id} className='border-b hover:bg-gray-50 transition'>
                                 <td className='className="p-4 text-gray-800 font-medium'>{course.name}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.email}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.course}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.dof}</td>
+                                <td className='className="p-4 text-gray-800 font-medium'>{course.course_code}</td>
+                                <td className='className="p-4 text-gray-800 font-medium'>{course.description}</td>
+                                <td className='className="p-4 text-gray-800 font-medium'>{course.duration}</td>
+                                <td className='className="p-4 text-gray-800 font-medium'>{course.fee}</td>
+
                                 <td className='className="p-4 text-gray-800 font-medium'>
                                     <button className='text-blue-500 hover:text-blue-700 transition-colors p-2 hover:bg-blue-50 rounded-full'><FiEdit size={18}/></button>
                                     <button className='text-red-500 hover:text-red-700 transition-colors p-2 hover:bg-red-50 rounded-full'><FiTrash2 size={18}/></button>

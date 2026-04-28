@@ -6,10 +6,10 @@ import { FiBook, FiCheckCircle, FiClock, FiCreditCard, FiTag, FiUser } from "rea
 interface Course{
     id: number
     name: string
-    description: string
     course_code: string
+    description: string
     duration: string
-    fee: string
+    fee: number
 }
 interface CourseProps{
     course: Course

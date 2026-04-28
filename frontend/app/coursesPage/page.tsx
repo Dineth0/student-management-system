@@ -1,15 +1,37 @@
 'use client'
 
 import CourseCard from '@/components/courseCard'
-import { useState } from 'react'
+import { getAllCourses } from '@/services/CourseAPI'
+import { useEffect, useState } from 'react'
 
-const Courses = [
-    { id: 1, name: 'Full Stack Development', course_code: 'FS101', duration: '6 Months', description: 'Master Next.js and Spring Boot from scratch.', fee: "Rs.45000" },
-    { id: 2, name: 'UI/UX Design', course_code: 'UX102', duration: '3 Months', description: 'Learn modern design principles using Figma.' , fee: "Rs.65000" },
-    { id: 3, name: 'Database Management', course_code: 'DM103', duration: '4 Months', description: 'Deep dive into PostgreSQL and Supabase.', fee: "Rs.65000" },
-]
+
+
+interface CourseItem{
+    id:number
+    name:string
+    course_code: string
+    description:string
+    duration:string
+    fee: number
+}
+
 export default function CoursesPage() {
     const [selectedCourse , setSelectedCourse] = useState<number | null>(null)
+    const [cousrses, setCourses] = useState<CourseItem[]>([])
+
+    useEffect(()=>{
+        const fetchCoures = async ()=>{
+            try{
+                const response = await getAllCourses()
+                setCourses(response.data.data)
+                console.log(response.data.data)
+            }catch(error){
+                console.error(error)
+            }
+        }
+        fetchCoures()
+    },[])
+    
   return (
     <div className='p-8 bg-gray-50 min-h-screen'>
         <div className='mb-10 text-center md:text-left'>
@@ -18,13 +40,18 @@ export default function CoursesPage() {
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-            {Courses.map((course)=>(
-                <CourseCard
-                    key={course.id}
-                    course={course}
-                    isSelected={selectedCourse === course.id}/>
-            ))}
-        </div>
+    {cousrses.length > 0 ? (
+        cousrses.map((course) => (
+            <CourseCard
+                key={course.id}
+                course={course}
+                isSelected={selectedCourse === course.id} 
+            />
+        ))
+    ) : (
+        <p className="text-center col-span-full text-gray-500">No courses found.</p>
+    )}
+</div>
     </div>
   )
 }

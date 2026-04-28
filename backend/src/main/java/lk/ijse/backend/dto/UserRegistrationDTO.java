@@ -16,6 +16,5 @@ public class UserRegistrationDTO {
     private String phone;
     private Date birthday;
     private String nic;
-    private Long course_id;
     private String password;
 }

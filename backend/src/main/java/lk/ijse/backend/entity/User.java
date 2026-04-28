@@ -18,8 +18,6 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "course_id")
-    private Course course;
+
 
 }

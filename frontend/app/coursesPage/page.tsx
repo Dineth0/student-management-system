@@ -1,7 +1,10 @@
 'use client'
 
 import CourseCard from '@/components/courseCard'
+import CoursePageNavbar from '@/components/coursePageNavbar'
+import { useAuth } from '@/context/AuthContext'
 import { getAllCourses } from '@/services/CourseAPI'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 
@@ -19,6 +22,17 @@ export default function CoursesPage() {
     const [selectedCourse , setSelectedCourse] = useState<number | null>(null)
     const [cousrses, setCourses] = useState<CourseItem[]>([])
 
+     const {user,loading} = useAuth()
+        const router = useRouter()
+    
+        useEffect(()=>{
+            if(!loading){
+                if(!user){
+                    router.push("/")
+                }
+            }
+        },[user,loading,router])
+
     useEffect(()=>{
         const fetchCoures = async ()=>{
             try{
@@ -33,6 +47,7 @@ export default function CoursesPage() {
     },[])
     
   return (
+    
     <div className='p-8 bg-green-50 min-h-screen'>
         <div className='mb-10 text-center md:text-left'>
             <h2 className='text-3xl font-bold text-gray-800'>Available Courses</h2>

@@ -1,7 +1,9 @@
 'use client'
 import CourseModal from '@/components/courseModal'
+import { useAuth } from '@/context/AuthContext'
 import { deleteCourse, getAllCourses } from '@/services/CourseAPI'
 import { showConfirmDialog, showErrorAlert, showSuccessAlert } from '@/utils/SweetAlerts'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 
@@ -17,7 +19,19 @@ export default function Courses() {
     const [cousrses, setCourses] = useState<CourseItem[]>([])
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState<CourseItem | null>(null)
+    const {user,loading} = useAuth()
+
+    const router = useRouter()
     
+    useEffect(()=>{
+        if(!loading){
+            if(!user){
+                router.push("/")
+            }else if(user.role != "ADMIN"){
+                router.push("/coursesPage")
+            }
+        }
+    },[user, loading,router])
 
     const handleSuccess = (updateCourse: CourseItem) =>{
         setIsOpenModal(false)

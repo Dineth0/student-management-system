@@ -4,6 +4,8 @@ import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import StudentModal from '../../components/studentModal';
 import { deleteStudent, getAllStudents } from '@/services/UserAPI';
 import { showConfirmDialog, showErrorAlert, showSuccessAlert } from '@/utils/SweetAlerts';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 interface StudentsItem{
     id:number
@@ -18,6 +20,18 @@ export default function Students() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedStudent, setSelectedStudent] = useState<StudentsItem | null>(null)
 
+    const {user,loading} = useAuth()
+        const router = useRouter()
+    
+        useEffect(()=>{
+            if(!loading){
+                if(!user){
+                    router.push("/")
+                }else if(user.role != "ADMIN"){
+                    router.push("/coursesPage")
+                }
+            }
+        },[user, loading])
     const handleSuccess = (updateStudent: StudentsItem) =>{
         setIsModalOpen(false)
         if(selectedStudent){

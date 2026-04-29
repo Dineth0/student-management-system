@@ -1,7 +1,28 @@
-import Link from 'next/link'
-import React from 'react'
+'use client'
 
-export default function page() {
+import { useAuth } from '@/context/AuthContext'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
+
+export default function Dashboard() {
+
+    const {user,loading} = useAuth()
+    const router = useRouter()
+
+    useEffect(()=>{
+        if(!loading){
+            if(!user){
+                router.push("/")
+            }else if(user.role != "ADMIN"){
+                router.push("/coursesPage")
+            }
+        }
+    },[user,loading,router])
+
+    if(loading){
+        <div>Loading...</div>
+    }
   return (
     <div className='p-8 bg-green-50 min-h-screen'>
         <div className='flex justify-center items-center mb-10'>

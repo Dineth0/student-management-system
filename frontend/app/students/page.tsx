@@ -31,7 +31,7 @@ export default function Students() {
                     router.push("/coursesPage")
                 }
             }
-        },[user, loading])
+        },[user, loading, router])
     const handleSuccess = (updateStudent: StudentsItem) =>{
         setIsModalOpen(false)
         if(selectedStudent){
@@ -86,10 +86,10 @@ export default function Students() {
         setIsModalOpen(true)
     }
 
-    const handleAdd = () =>{
-        setSelectedStudent(null)
-        setIsModalOpen(true)
-    }
+    // const handleAdd = () =>{
+    //     setSelectedStudent(null)
+    //     setIsModalOpen(true)
+    // }
   return (
     <div className='p-8 bg-green-50 min-h-screen'>
         <div className='flex justify-between items-center mb-6'>
@@ -99,10 +99,10 @@ export default function Students() {
                 </h2>
             </div>
 
-            <button className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-200'
+            {/* <button className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition duration-200'
                     onClick={handleAdd}>
                 + Add Students
-            </button>
+            </button> */}
         </div>
 
         <div className='bg-white shadow-md rounded-xl overflow-hidden border border-gray-200'>

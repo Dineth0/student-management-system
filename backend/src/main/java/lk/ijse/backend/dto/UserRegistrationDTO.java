@@ -1,5 +1,6 @@
 package lk.ijse.backend.dto;
 
+import lk.ijse.backend.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class UserRegistrationDTO {
     private Date birthday;
     private String nic;
     private String password;
+    private Role role;
 }

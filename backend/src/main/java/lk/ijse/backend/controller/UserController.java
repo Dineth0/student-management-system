@@ -1,12 +1,16 @@
 package lk.ijse.backend.controller;
 
+import lk.ijse.backend.dto.AuthDTO;
 import lk.ijse.backend.dto.ResponseDTO;
 import lk.ijse.backend.dto.UserRegistrationDTO;
 import lk.ijse.backend.service.UserService;
+import lk.ijse.backend.util.JwtUtil;
 import lk.ijse.backend.util.VarList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    
 
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
@@ -42,4 +48,8 @@ public class UserController {
         }
 
     }
+
+
+
+
 }

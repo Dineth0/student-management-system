@@ -1,5 +1,6 @@
 package lk.ijse.backend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.backend.dto.AuthDTO;
 import lk.ijse.backend.dto.ResponseDTO;
 import lk.ijse.backend.dto.UserRegistrationDTO;
@@ -24,7 +25,7 @@ public class UserController {
     
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
         try{
             int response = userService.AddUser(userRegistrationDTO);
             switch (response) {

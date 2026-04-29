@@ -47,7 +47,7 @@ export default function CourseCard({course, isSelected}: CourseProps) {
             className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center transition
           ${isSelected 
             ? 'bg-green-500 text-white cursor-default' 
-            : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md active:scale-95'}`}>
+            : 'bg-green-600 hover:bg-green-700 text-white shadow-md active:scale-95'}`}>
 
                 {isSelected ? (
                     <>

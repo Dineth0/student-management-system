@@ -1,5 +1,6 @@
 package lk.ijse.backend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.backend.dto.CourseDTO;
 import lk.ijse.backend.dto.ResponseDTO;
 import lk.ijse.backend.dto.StudentDTO;
@@ -21,7 +22,7 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping("/addCourse")
-        public ResponseEntity<ResponseDTO> addCourse(@RequestBody CourseDTO courseDTO) {
+        public ResponseEntity<ResponseDTO> addCourse(@Valid @RequestBody CourseDTO courseDTO) {
             try{
                 int response = courseService.addCourse(courseDTO);
                 switch (response) {

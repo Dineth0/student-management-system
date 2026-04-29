@@ -6,10 +6,9 @@ import { usePathname, useRouter } from 'next/navigation'
 
 export default function Navbar() {
   const pathname = usePathname()
-  const path = ["/", "/signup", '/coursesPage']
+  const path = ["/", "/signup", '/coursesPage',"/myCourses"]
   const {logout} = useAuth()
   const router = useRouter()
-  const {setUser} = useAuth()
 
   if(path.includes(pathname)){
     return null

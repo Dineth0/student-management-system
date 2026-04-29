@@ -29,7 +29,7 @@ export const AuthProvider = ({children,}:{children:ReactNode})=>{
 
     useEffect(()=>{
         const fetchCurrentUser = async()=>{
-            if(pathname === "/login" || pathname==="/signup"){
+            if(pathname === "/" || pathname==="/signup"){
                 setLoading(false)
                 return
             }
@@ -55,8 +55,8 @@ export const AuthProvider = ({children,}:{children:ReactNode})=>{
         }catch(error){
             console.error(error)
         }
-        setUser(null)
-        window.location.href = '/'
+        // setUser(null)
+        // window.location.href = '/'
     }
 
     return (

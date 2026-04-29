@@ -1,0 +1,14 @@
+package lk.ijse.backend.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class AuthDTO {
+    private String token;
+    private String email;
+    private String role;
+}

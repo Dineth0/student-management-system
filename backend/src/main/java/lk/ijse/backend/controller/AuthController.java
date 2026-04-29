@@ -60,6 +60,7 @@ public class AuthController {
 
         AuthDTO authDTO = new AuthDTO();
         authDTO.setEmail(loadedUser.getEmail());
+        authDTO.setToken(token);
         authDTO.setRole(loadedUser.getRole().toString());
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -68,25 +69,32 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<ResponseDTO> getCurrentUser() {
-        try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String email = authentication.getName();
-            UserRegistrationDTO userRegistrationDTO = userService.loadUserDetailsByUsername(email);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
 
-            if (userRegistrationDTO != null) {
-                userRegistrationDTO.setPassword(null);
-
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(new ResponseDTO(VarList.OK, "Success", userRegistrationDTO));
-            }else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ResponseDTO(VarList.Not_Found, "User Not found", null));
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        if(authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ResponseDTO(
+                            VarList.Unauthorized,
+                            "Unauthorized",
+                            null
+                    ));
         }
+
+        String email = authentication.getName();
+
+        UserRegistrationDTO user =
+                userService.loadUserDetailsByUsername(email);
+
+        user.setPassword(null);
+
+        return ResponseEntity.ok(
+                new ResponseDTO(
+                        VarList.OK,
+                        "Success",
+                        user
+                )
+        );
     }
 
     @PostMapping("/logout")

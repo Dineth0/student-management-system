@@ -68,4 +68,9 @@ public class CourseServiceImpl implements CourseService {
                 .map(course -> modelMapper.map(course, CourseDTO.class))
                 .toList();
     }
+
+    @Override
+    public long getCourseCount() {
+        return courseRepo.count();
+    }
 }

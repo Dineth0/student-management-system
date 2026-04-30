@@ -10,4 +10,6 @@ public interface CourseService {
     int updateCourse(CourseDTO courseDTO);
     int deleteCourse(Long id);
     List<CourseDTO> getAllCourses();
+
+    long getCourseCount();
 }

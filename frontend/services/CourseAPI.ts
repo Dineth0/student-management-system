@@ -24,3 +24,6 @@ export const getAllCourses = () =>{
 export const deleteCourse = (id: number)=>{
     return axiosInstance.delete(`/course/deleteCourse/${id}`)
 }
+export const getCourseCount = ()=>{
+    return axiosInstance.get('/course/count')
+}

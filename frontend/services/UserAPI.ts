@@ -21,3 +21,7 @@ export const deleteStudent = (id: number)=>{
 export const updateStudent = ( data:userData)=>{
     return axiosInstance.put('/student/updateStudent', data)
 }
+
+export const getStudentCount = ()=>{
+    return axiosInstance.get('/student/count')
+}

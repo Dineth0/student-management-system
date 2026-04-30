@@ -9,6 +9,14 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 
+interface RegisterItem {
+    id?: number;
+    studentId: number;
+    courseId: number;
+    registrationDate: string;
+    paymentStatus: string;
+   
+}
 
 interface CourseItem{
     id:number
@@ -53,7 +61,7 @@ export default function CoursesPage() {
         if (user) {
             try {
                 const response = await getUserRegistrations(user.id); 
-                const ids = response.data.data.map((reg: any) => reg.courseId);
+                const ids = response.data.data.map((reg: RegisterItem) => reg.courseId);
                 setEnrolledCourseIds(ids);
             } catch (error) {
                 console.error("Error fetching enrollments", error);

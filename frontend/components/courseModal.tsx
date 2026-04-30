@@ -36,6 +36,14 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
     fee: course?.fee || 0,
    })
 
+   const initialFormValues = {
+    id: undefined,
+    course_code: '',
+    name: '',
+    description: '',
+    duration: '',
+    fee: 0,
+  };
    const validate = () => {
       const newErrors: { [key: string]: string } = {};
 
@@ -78,6 +86,9 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
           response = await addCourse(formData)
         }
         showSuccessAlert('Success', course ? 'Course Updated' : 'Course Added');
+        setFormData(initialFormValues)
+        setInputErrors({})
+        setError(null)
         onSuccess(response.data.data)
         onClose()
       }catch(error){
@@ -97,7 +108,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
     <div className='fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-50 p-4'>
       <div className='bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden'>
         <div className='flex justify-between items-center p-5 border-b bg-gray-50'>
-          <h3 className='text-xl font-bold text-gray-800'>Add New Student</h3>
+          <h3 className='text-xl font-bold text-gray-800'>Add New Course</h3>
 
         </div>
 

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 export default function CoursePageNavbar() {
   const pathname = usePathname()
-  const path = ["/", "/signup","/dashboard","/course","/students"]
+  const path = ["/", "/signup","/dashboard","/course","/students","/courseRegister"]
   const {logout} = useAuth()
   const router = useRouter()
 

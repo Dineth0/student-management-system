@@ -25,8 +25,42 @@ export default function UserRegister() {
 
     const router = useRouter()
 
+    const [inputErrors, setInputErrors] = useState<{[key:string]: string}>({})
+
+    const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    // Name validation
+    if (!name.trim()) newErrors.name = "Name is required";
+
+    // Email validation
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!email) newErrors.email = "Email is required";
+    else if (!emailRegex.test(email)) newErrors.email = "Invalid email format";
+
+    // Phone validation (ශ්‍රී ලංකාවේ අංක 10ක් විය යුතුයි)
+    const phoneRegex = /^\d{10}$/;
+    if (!phone) newErrors.phone = "Phone number is required";
+    else if (!phoneRegex.test(phone)) newErrors.phone = "Phone number must be 10 digits";
+
+    
+
+    // NIC validation (පැරණි: 9 digits + V/X, අලුත්: 12 digits)
+    const nicRegex = /^([0-9]{9}[vVxX]|[0-9]{12})$/;
+    if (!nic) newErrors.nic = "NIC is required";
+    else if (!nicRegex.test(nic)) newErrors.nic = "Invalid NIC format";
+
+    // Password validation
+    if (!password) newErrors.password = "Password is required";
+    else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+
+    setInputErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Errors නැත්නම් true එවයි
+};
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
+        if(!validate()) return
         setLoading(true)
         setError(null)
 
@@ -64,7 +98,7 @@ export default function UserRegister() {
     }
 
   return (
-    <main className="min-h-screen bg-[#F1F1F1] flex items-center justify-center p-4">
+    <main className="min-h-screen bg-green-50 flex items-center justify-center p-4">
             <div className="bg-white w-full max-w-md rounded-[40px] shadow-xl overflow-hidden flex flex-col min-h-[550px] relative px-8 pt-20">
                 <h1 className="text-3xl font-bold text-[#213401] text-center mb-5">Create Your Account</h1>
 
@@ -82,6 +116,7 @@ export default function UserRegister() {
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+                        {inputErrors.name && <p className="text-red-500 text-xs mt-1 ml-2">{inputErrors.name}</p>}
                     </div>
 
                     <div className='relative'>
@@ -96,6 +131,8 @@ export default function UserRegister() {
                         value={email}
                         onChange={(e)=>setEmail(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+                        {inputErrors.email && <p className="text-red-500 text-xs mt-1 ml-2">{inputErrors.email}</p>}
+
                     </div>
 
                     <div className='relative'>
@@ -110,6 +147,8 @@ export default function UserRegister() {
                         value={phone}
                         onChange={(e)=>setPhone(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+                        {inputErrors.phone && <p className="text-red-500 text-xs mt-1 ml-2">{inputErrors.phone}</p>}
+
                     </div>
 
                     <div className='relative'>
@@ -124,6 +163,7 @@ export default function UserRegister() {
                         value={birthday}
                         onChange={(e)=>setBirthday(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+
                     </div>
 
                     <div className='relative'>
@@ -138,6 +178,9 @@ export default function UserRegister() {
                         value={nic}
                         onChange={(e)=>setNic(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+                        {inputErrors.nic && <p className="text-red-500 text-xs mt-1 ml-2">{inputErrors.nic}</p>}
+
+
                     </div>
 
                     <div className='relative'>
@@ -152,6 +195,8 @@ export default function UserRegister() {
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
                         className='w-full py-4 pl-12 pr-4 text-gray-900 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#A4E671] transition-all'/>
+                        {inputErrors.password && <p className="text-red-500 text-xs mt-1 ml-2">{inputErrors.password}</p>}
+
                     </div>
 
                     {error && (

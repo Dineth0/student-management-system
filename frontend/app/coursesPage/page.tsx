@@ -1,9 +1,10 @@
 'use client'
 
 import CourseCard from '@/components/courseCard'
-import CoursePageNavbar from '@/components/coursePageNavbar'
+import CourseRegisterModal from '@/components/courseRegisterModal'
 import { useAuth } from '@/context/AuthContext'
 import { getAllCourses } from '@/services/CourseAPI'
+import { getUserRegistrations } from '@/services/CourseRegister'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -21,9 +22,11 @@ interface CourseItem{
 export default function CoursesPage() {
     const [selectedCourse , setSelectedCourse] = useState<number | null>(null)
     const [cousrses, setCourses] = useState<CourseItem[]>([])
-
-     const {user,loading} = useAuth()
-        const router = useRouter()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [targetCourse, setTargetCourse] = useState<CourseItem | null>(null)
+    const {user,loading} = useAuth()
+    const router = useRouter()
+    const [enrolledCourseIds, setEnrolledCourseIds] = useState<number[]>([])
     
         useEffect(()=>{
             if(!loading){
@@ -45,6 +48,27 @@ export default function CoursesPage() {
         }
         fetchCoures()
     },[])
+
+    useEffect(() => {
+    const fetchUserEnrollments = async () => {
+        if (user) {
+            try {
+                // මෙතන ඔයාගේ API එකට අනුව වෙනස් කරන්න
+                const response = await getUserRegistrations(user.id); 
+                // enroll වෙලා ඉන්න course IDs ටික array එකකට ගන්න
+                const ids = response.data.data.map((reg: any) => reg.courseId);
+                setEnrolledCourseIds(ids);
+            } catch (error) {
+                console.error("Error fetching enrollments", error);
+            }
+        }
+    }
+    fetchUserEnrollments();
+}, [user]);
+    const handleOpen = (course: CourseItem) => {
+    setTargetCourse(course)
+    setIsModalOpen(true)
+  }
     
   return (
     
@@ -60,12 +84,20 @@ export default function CoursesPage() {
             <CourseCard
                 key={course.id}
                 course={course}
-                isSelected={selectedCourse === course.id} 
+isSelected={enrolledCourseIds.includes(course.id)}                
+onClick={handleOpen}
             />
         ))
     ) : (
         <p className="text-center col-span-full text-gray-500">No courses found.</p>
     )}
+    {isModalOpen && targetCourse && (
+        <CourseRegisterModal 
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          course={targetCourse}
+        />
+      )}
 </div>
     </div>
   )

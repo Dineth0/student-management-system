@@ -40,7 +40,7 @@ export default function Dashboard() {
 
                     <div className='flex justify-between items-end mt-4'>
                         <span className='text-4xl font-bold text-gray-800 group-hover:text-blue-600 transition'>
-                            40
+                            7
                         </span>
                         <span className='text-blue-500 text-sm font-semibold'>
                             View All
@@ -58,7 +58,24 @@ export default function Dashboard() {
 
                     <div className='flex justify-between items-end mt-4'>
                         <span className='text-4xl font-bold text-gray-800 group-hover:text-blue-600 transition'>
-                            40
+                          4
+                        </span>
+                        <span className='text-green-500 text-sm font-semibold'>
+                            View All
+                        </span>
+                    </div>
+                </div>
+            </Link>
+
+            <Link href="/courseRegister">
+                <div className='p-6 bg-white border-l-4 border-green-500 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer group'>
+                    <div className='text-gray-500 text-sm font-medium uppercase tracking-wider'>
+                        Total Registrations
+                    </div>
+
+                    <div className='flex justify-between items-end mt-4'>
+                        <span className='text-4xl font-bold text-gray-800 group-hover:text-blue-600 transition'>
+                            5
                         </span>
                         <span className='text-green-500 text-sm font-semibold'>
                             View All

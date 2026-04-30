@@ -24,6 +24,8 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
 
    const[loading, setLoading] = useState(false)
    const [error, setError] = useState<string | null>(null)
+   const [inputErrors, setInputErrors] = useState<{[key:string]: string}>({})
+
 
    const [formData, setFormData] = useState({
     id: course?.id ,
@@ -34,6 +36,27 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
     fee: course?.fee || 0,
    })
 
+   const validate = () => {
+      const newErrors: { [key: string]: string } = {};
+
+      if (!formData.name.trim()) newErrors.name = "Course name is required";
+        
+      if (!formData.course_code.trim()) {
+          newErrors.course_code = "Course code is required";
+      }else if (formData.course_code.length < 3) {
+        newErrors.course_code = "Code must be at least 3 characters";
+      }
+
+      if (!formData.description.trim()) newErrors.description = "Description is required";
+      if (!formData.duration.trim()) newErrors.duration = "Duration is required";
+
+      if (formData.fee <= 0) {
+        newErrors.fee = "Fee must be a positive value";
+      }
+
+      setInputErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+  };
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
        const {name, value} = e.target
        setFormData((prev)=>({
@@ -44,6 +67,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault()
+      if (!validate()) return;
       setLoading(true)
      
       try{
@@ -87,6 +111,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
             value={formData.name}
             onChange={handleChange}
             className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            {inputErrors.name && <p className="text-red-500 text-xs mt-1">{inputErrors.name}</p>}
           </div>
 
           <div>
@@ -98,6 +123,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
             value={formData.course_code}
             onChange={handleChange}
             className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            {inputErrors.course_code && <p className="text-red-500 text-xs mt-1">{inputErrors.course_code}</p>}
           </div>
 
           <div>
@@ -109,6 +135,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
             value={formData.description}
             onChange={handleChange}
             className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            {inputErrors.description && <p className="text-red-500 text-xs mt-1">{inputErrors.description}</p>}
           </div>
 
           <div>
@@ -120,6 +147,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
             value={formData.duration}
             onChange={handleChange}
             className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            {inputErrors.duration && <p className="text-red-500 text-xs mt-1">{inputErrors.duration}</p>}
           </div>
 
           <div>
@@ -131,6 +159,7 @@ export default function CourseModal({isOpen, onClose, onSuccess, course}:Props) 
             value={formData.fee}
             onChange={handleChange}
             className='w-full text-gray-900 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500'/>
+            {inputErrors.fee && <p className="text-red-500 text-xs mt-1">{inputErrors.fee}</p>}
           </div>
 
           {error && (

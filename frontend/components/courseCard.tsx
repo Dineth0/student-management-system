@@ -14,8 +14,10 @@ interface Course{
 interface CourseProps{
     course: Course
     isSelected: boolean
+    onClick:(course: Course)=> void
 }
-export default function CourseCard({course, isSelected}: CourseProps) {
+
+export default function CourseCard({course, isSelected, onClick}: CourseProps) {
   return (
     <div 
       className={`bg-white rounded-2xl shadow-sm border-2 transition-all duration-300 p-6 flex flex-col justify-between
@@ -44,19 +46,20 @@ export default function CourseCard({course, isSelected}: CourseProps) {
         </div>
 
         <button
-            className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center transition
-          ${isSelected 
-            ? 'bg-green-500 text-white cursor-default' 
-            : 'bg-green-600 hover:bg-green-700 text-white shadow-md active:scale-95'}`}>
-
-                {isSelected ? (
-                    <>
-                        <FiCheckCircle className="mr-2"/>Enrolled
-                    </>
-                ):(
-                    'Enroll Now'
-                )}
-        </button>
+    disabled={isSelected} 
+    onClick={() => onClick(course)} 
+    className={`w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center
+        ${isSelected 
+            ? 'bg-gray-400 text-white cursor-not-allowed shadow-none' // Enroll වුණු පසු (අළු පාට)
+            : 'bg-green-500 text-white hover:bg-green-600 shadow-md active:scale-95' // සාමාන්‍ය (කොළ පාට)
+        }`}
+>
+    {isSelected ? (
+        <><FiCheckCircle className="mr-2" /> Enrolled</>
+    ) : (
+        'Enroll Now'
+    )}
+</button>
     </div>
   )
 }

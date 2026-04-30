@@ -29,6 +29,8 @@ export default function Navbar() {
             <Link href="/dashboard" className='hover:underline'>Dashboard</Link>
             <Link href="/students" className='hover:underline'>Students</Link>
             <Link href="/course" className='hover:underline'>Courses</Link>
+            <Link href="/courseRegister" className='hover:underline'>Registers</Link>
+
             <button className='bg-red-500 px-3 py-1 rounded' onClick={handleLogout}>Logout</button>
         </div>
     </nav>

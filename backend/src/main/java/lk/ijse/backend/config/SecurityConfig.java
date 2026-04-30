@@ -45,12 +45,13 @@ public class SecurityConfig {
                                 "/api/v1/auth/logout"
 
                         ).permitAll()
+
                         .requestMatchers(
                                 "/api/v1/student/getAllStudents",
                                 "/api/v1/student/deleteStudent/",
                                 "/api/v1/course/addCourse",
                                 "/api/v1/course/deleteCourse/",
-                                "api/v1/registration/getAllRegistrations",
+                                "api/v1/registration/getAllRegistrations/",
                                 "/api/v1/course/updateCourse").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
 

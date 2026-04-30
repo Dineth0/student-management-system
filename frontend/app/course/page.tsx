@@ -122,13 +122,13 @@ export default function Courses() {
                     {cousrses.length > 0 ? (
                         cousrses.map((course)=>(
                             <tr key={course.id} className='border-b hover:bg-gray-50 transition'>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.name}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.course_code}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.description}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.duration}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{course.fee}</td>
+                                <td className='p-6 text-gray-800 font-medium'>{course.name}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{course.course_code}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{course.description}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{course.duration}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{course.fee}</td>
 
-                                <td className='className="p-4 text-gray-800 font-medium'>
+                                <td className='p-4 text-gray-800 font-medium'>
                                     <button className='text-blue-500 hover:text-blue-700 transition-colors p-2 hover:bg-blue-50 rounded-full' onClick={()=> handleEdit(course)}><FiEdit size={18}/></button>
                                     <button className='text-red-500 hover:text-red-700 transition-colors p-2 hover:bg-red-50 rounded-full' onClick={()=> handleDelete(course)}><FiTrash2 size={18}/></button>
                                 </td>

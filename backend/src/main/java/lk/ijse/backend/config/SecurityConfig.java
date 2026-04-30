@@ -50,12 +50,13 @@ public class SecurityConfig {
                                 "/api/v1/student/deleteStudent/",
                                 "/api/v1/course/addCourse",
                                 "/api/v1/course/deleteCourse/",
+                                "api/v1/registration/getAllRegistrations",
                                 "/api/v1/course/updateCourse").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
 
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider) // මේක මෙතනට දාන්න
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 

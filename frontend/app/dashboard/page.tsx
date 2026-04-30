@@ -58,7 +58,7 @@ export default function Dashboard() {
 
                     <div className='flex justify-between items-end mt-4'>
                         <span className='text-4xl font-bold text-gray-800 group-hover:text-blue-600 transition'>
-                          4
+                          6
                         </span>
                         <span className='text-green-500 text-sm font-semibold'>
                             View All
@@ -75,7 +75,7 @@ export default function Dashboard() {
 
                     <div className='flex justify-between items-end mt-4'>
                         <span className='text-4xl font-bold text-gray-800 group-hover:text-blue-600 transition'>
-                            5
+                            6
                         </span>
                         <span className='text-green-500 text-sm font-semibold'>
                             View All

@@ -27,7 +27,6 @@ export default function CoursePageNavbar() {
         <div className='font-bold text-xl'>Student Management System</div>
         <div className='space-x-6'>
             <Link href="/coursesPage" className='hover:underline'>Courses</Link>
-            <Link href="/myCourses" className='hover:underline'>My Courses</Link>
             <button className='bg-red-500 px-3 py-1 rounded' onClick={handleLogout}>Logout</button>
         </div>
     </nav>

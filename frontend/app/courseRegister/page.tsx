@@ -76,10 +76,10 @@ export default function CourseRegistration() {
                     {registers.length > 0 ? (
                         registers.map((register)=>(
                             <tr key={register.id} className='border-b hover:bg-gray-50 transition'>
-                                <td className='className="p-4 text-gray-800 font-medium'>{register.studentName}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{register.courseName}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{register.paymentStatus}</td>
-                                <td className='className="p-4 text-gray-800 font-medium'>{register.registrationDate}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{register.studentName}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{register.courseName}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{register.paymentStatus}</td>
+                                <td className='p-4 text-gray-800 font-medium'>{register.registrationDate}</td>
 
                                 
                             </tr>

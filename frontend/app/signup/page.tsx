@@ -30,32 +30,25 @@ export default function UserRegister() {
     const validate = () => {
     const newErrors: { [key: string]: string } = {};
 
-    // Name validation
     if (!name.trim()) newErrors.name = "Name is required";
 
-    // Email validation
     const emailRegex = /\S+@\S+\.\S+/;
     if (!email) newErrors.email = "Email is required";
     else if (!emailRegex.test(email)) newErrors.email = "Invalid email format";
 
-    // Phone validation (ශ්‍රී ලංකාවේ අංක 10ක් විය යුතුයි)
     const phoneRegex = /^\d{10}$/;
     if (!phone) newErrors.phone = "Phone number is required";
     else if (!phoneRegex.test(phone)) newErrors.phone = "Phone number must be 10 digits";
 
-    
-
-    // NIC validation (පැරණි: 9 digits + V/X, අලුත්: 12 digits)
-    const nicRegex = /^([0-9]{9}[vVxX]|[0-9]{12})$/;
+        const nicRegex = /^([0-9]{9}[vVxX]|[0-9]{12})$/;
     if (!nic) newErrors.nic = "NIC is required";
     else if (!nicRegex.test(nic)) newErrors.nic = "Invalid NIC format";
 
-    // Password validation
     if (!password) newErrors.password = "Password is required";
     else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
 
     setInputErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Errors නැත්නම් true එවයි
+    return Object.keys(newErrors).length === 0; 
 };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
@@ -80,6 +73,8 @@ export default function UserRegister() {
             setTimeout(()=>{
                 router.push('/')
             },2000)
+            setInputErrors({})
+            setError(null)
             return response.data
 
             

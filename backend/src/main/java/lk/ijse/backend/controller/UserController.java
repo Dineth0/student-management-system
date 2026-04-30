@@ -49,6 +49,17 @@ public class UserController {
         }
 
     }
+    @GetMapping("/count")
+    public ResponseEntity<ResponseDTO> getCount() {
+        try {
+            long count = userService.getStudentCount();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ResponseDTO(VarList.OK, "Success", count));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
+        }
+    }
 
 
 

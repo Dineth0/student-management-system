@@ -13,4 +13,5 @@ public interface UserService {
     UserDetails loadUserByUsername(String email);
 
     UserRegistrationDTO loadUserDetailsByUsername(String name);
+    Long getStudentCount();
 }
